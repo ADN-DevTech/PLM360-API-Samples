@@ -24,10 +24,11 @@ namespace Autodesk.Adn.PLM360RestAPISample
         // In real world Apps, these values need to secured.
         // One approach is to encrypt and/or obfuscate these values
         private const string m_ConsumerKey = "place holder";
-        private const string m_ConsumerSecret = "place holder ";
+        private const string m_ConsumerSecret = "place holder";
         private const string m_baseURL = "place holder";
 
         private const string tanentName = "place holder";
+
 
         private long currentWorkspaceId = 0;
         PLM360RestService plmSvc;
