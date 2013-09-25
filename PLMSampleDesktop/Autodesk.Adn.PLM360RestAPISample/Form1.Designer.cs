@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("<empty, Login first>");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("<empty, Login first>");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginToolStripMenuItemLogin = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +52,7 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBoxPageSize = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.lvWorkspaceItems = new System.Windows.Forms.ListView();
             this.Id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.versionId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -59,7 +60,7 @@
             this.descripter = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.deleted = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.props = new System.Windows.Forms.PropertyGrid();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -67,7 +68,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loginToolStripMenuItem});
+            this.loginToolStripMenuItem,
+            this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1224, 28);
@@ -104,10 +106,10 @@
             this.tvWorkspaces.HideSelection = false;
             this.tvWorkspaces.Location = new System.Drawing.Point(0, 28);
             this.tvWorkspaces.Name = "tvWorkspaces";
-            treeNode1.Name = "Node0";
-            treeNode1.Text = "<empty, Login first>";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "<empty, Login first>";
             this.tvWorkspaces.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.tvWorkspaces.Size = new System.Drawing.Size(304, 650);
             this.tvWorkspaces.TabIndex = 2;
             this.tvWorkspaces.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvWorkspaces_AfterSelect);
@@ -204,6 +206,15 @@
             this.toolStripTextBoxPageSize.Size = new System.Drawing.Size(100, 27);
             this.toolStripTextBoxPageSize.Text = "100";
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(78, 24);
+            this.toolStripButton1.Text = "Refresh";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
             // lvWorkspaceItems
             // 
             this.lvWorkspaceItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -217,11 +228,11 @@
             this.lvWorkspaceItems.GridLines = true;
             this.lvWorkspaceItems.HideSelection = false;
             this.lvWorkspaceItems.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5});
+            listViewItem6,
+            listViewItem7,
+            listViewItem8,
+            listViewItem9,
+            listViewItem10});
             this.lvWorkspaceItems.Location = new System.Drawing.Point(317, 55);
             this.lvWorkspaceItems.MultiSelect = false;
             this.lvWorkspaceItems.Name = "lvWorkspaceItems";
@@ -266,14 +277,12 @@
             this.props.Size = new System.Drawing.Size(424, 623);
             this.props.TabIndex = 10;
             // 
-            // toolStripButton1
+            // refreshWorkspacesToolStripMenuItemRefreshWorkspaces
             // 
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(78, 24);
-            this.toolStripButton1.Text = "Refresh";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces.Name = "refreshWorkspacesToolStripMenuItemRefreshWorkspaces";
+            this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces.Size = new System.Drawing.Size(153, 24);
+            this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces.Text = "Refresh Workspaces";
+            this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces.Click += new System.EventHandler(this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces_Click);
             // 
             // Form1
             // 
@@ -327,6 +336,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripMenuItem refreshWorkspacesToolStripMenuItemRefreshWorkspaces;
     }
 }
 

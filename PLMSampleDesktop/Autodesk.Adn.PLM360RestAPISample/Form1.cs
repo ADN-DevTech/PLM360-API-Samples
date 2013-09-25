@@ -29,7 +29,6 @@ namespace Autodesk.Adn.PLM360RestAPISample
 
         private const string tanentName = "place holder";
 
-
         private long currentWorkspaceId = 0;
         PLM360RestService plmSvc;
 
@@ -210,6 +209,15 @@ namespace Autodesk.Adn.PLM360RestAPISample
             long.TryParse(toolStripTextBoxPageSize.Text.Trim(), out pageSize);
 
             DisplayWorkItems(currentWorkspaceId, page, pageSize);
+        }
+
+        private void refreshWorkspacesToolStripMenuItemRefreshWorkspaces_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            BindWorkspaces();
+
+            Cursor.Current = Cursors.Default;
         }
 
 
