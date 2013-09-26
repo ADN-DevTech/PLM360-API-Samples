@@ -72,8 +72,7 @@ namespace Autodesk.Adn.PLM360API
         
         public string workspaceTypeId { set; get; }
     }
-    
-    
+
     public class Item
     {
         
@@ -98,7 +97,14 @@ namespace Autodesk.Adn.PLM360API
         
         public Dictionary<string, List<Picklist>> picklistFields { set; get; }
     }
-    
+
+    public class ItemDetail : Item
+    {
+        public bool isWorkingVersion { set; get; }
+
+        public bool isLatestVersion { set; get; }
+
+    }
 
     
     public class Picklist
@@ -130,6 +136,10 @@ namespace Autodesk.Adn.PLM360API
         public string description { set; get; }
         
         public string status { set; get; }
+
+        public string version { set; get; }
+
+        public long size { set; get; }
     }
 
     

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using Autodesk.Adn.OAuthentication;
@@ -167,9 +168,39 @@ namespace Autodesk.Adn.PLM360RestAPISample
                 {
                     props.SelectedObject = new ItemPropertyGrid(fullItem);
                 }
+
+                //Get item attachments
+                BindItemAttachment(fullItem);
                 
                 Cursor.Current = Cursors.Default;
             }
+        }
+
+        private void BindItemAttachment(Item item)
+        {
+            PagedCollection<File> attachments = plmSvc.GetAttachments(item);
+            if (attachments == null) return;
+
+            listViewAttachments.BeginUpdate();
+            listViewAttachments.Items.Clear();
+
+            foreach (File file in attachments.elements)
+            {
+                ListViewItem lvi = new ListViewItem();
+                lvi.Tag = file;
+                lvi.Text = file.id.ToString();
+                string[] values = new string[] 
+                {
+                    file.title + "",
+                    file.version + "",
+                    file.status
+                };
+                lvi.SubItems.AddRange(values);
+                listViewAttachments.Items.Add(lvi);
+
+            }
+
+            listViewAttachments.EndUpdate();
         }
 
         private void logoutToolStripMenuItemLogout_Click(object sender, EventArgs e)
@@ -221,6 +252,148 @@ namespace Autodesk.Adn.PLM360RestAPISample
             Cursor.Current = Cursors.Default;
         }
 
+        private void toolStripButtonCheckout_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem lvi in listViewAttachments.SelectedItems)
+            {
+                File file = (File)lvi.Tag;
+
+                File checkedOutFile = plmSvc.CheckoutFile(file);
+
+                if (checkedOutFile != null && checkedOutFile.status.ToUpper() == "CHECKEDOUT")
+                {
+
+                    lvi.SubItems[3].Text = "CHECKEDOUT";
+
+                   DialogResult dr = MessageBox.Show("file " + checkedOutFile.title + " is checked out. \n Do you want to download it?","Check Out",MessageBoxButtons.YesNo);
+                   if (dr == System.Windows.Forms.DialogResult.Yes)
+                   {
+                       DownloadFile(checkedOutFile);
+                   }
+                }
+                
+            }
+
+           
+
+        }
+
+        private void toolStripButtonDownload_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem lvi in listViewAttachments.SelectedItems)
+            {
+                File file = (File)lvi.Tag;
+
+                DownloadFile(file);
+
+            }
+
+        }
+
+
+        private void DownloadFile(File file)
+        {
+
+            saveFileDialog1.FileName = file.fileName; //default filename
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                //TODO: 
+
+            }
+
+        }
+
+
+        private void toolStripButtonUndoCheckout_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem lvi in listViewAttachments.SelectedItems)
+            {
+                File file = (File)lvi.Tag;
+
+                if (plmSvc.UndoCheckout(file))
+                {
+                    lvi.SubItems[3].Text = "CHECKEDIN";
+                    MessageBox.Show("File checkout undo success. File lock is released.");
+                }
+                else
+                {
+                    MessageBox.Show("There are some problems when trying to undo checkout.");
+                }
+
+            }
+        }
+
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem lvi in listViewAttachments.SelectedItems)
+            {
+                File file = (File)lvi.Tag;
+
+                if (MessageBox.Show("Are you sure to delete file : "+ file.title + "?" , "Delete File", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    bool success = plmSvc.DeleteFile(file);
+                    if (success)
+                    {
+                        listViewAttachments.Items.Remove(lvi);
+                    }
+                    else
+                    {
+                        MessageBox.Show("There are some problems when trying to delete file");
+                    }
+                }
+            }
+        }
+
+        private void toolStripButtonDeleteItem_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem lvi in lvWorkspaceItems.SelectedItems)
+            {
+
+                Item item = (Item)lvi.Tag;
+                if (MessageBox.Show("Are you sure to delete item : " + item.itemDescriptor + "?", "Delete Item", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    bool success = plmSvc.DeleteItem(item);
+                    if (success)
+                    {
+                        lvWorkspaceItems.Items.Remove(lvi);
+                    }
+                    else
+                    {
+                        MessageBox.Show("There are some problems when trying to delete item");
+                    }
+                }
+            }
+        }
+
+        private void toolStripButtonCloneItem_Click(object sender, EventArgs e)
+        {
+            //foreach (ListViewItem lvi in lvWorkspaceItems.SelectedItems)
+            //{
+
+            //    Item item = (Item)lvi.Tag;
+
+            //    ItemDetail newItem = new ItemDetail
+            //    {
+            //        //id = item.id,
+            //        deleted = false,
+            //        fields = item.fields,
+            //        isLatestVersion = true,
+            //        isWorkingVersion = true,
+            //        itemDescriptor = item.itemDescriptor + " - Clone",
+            //        rootId = item.rootId,
+            //        picklistFields = item.picklistFields,
+            //        revision = item.revision,
+            //        //url = item.url,
+            //        version = item.version,
+            //        //workspaceId = item.workspaceId
+
+            //    };
+
+            //    ItemDetail nweAddedItem = plmSvc.AddItem(item.workspaceId,newItem);
+
+            //}
+
+        }
 
     }
 }

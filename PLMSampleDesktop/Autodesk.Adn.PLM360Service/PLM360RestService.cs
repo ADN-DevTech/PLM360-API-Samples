@@ -244,6 +244,156 @@ namespace Autodesk.Adn.PLM360API
 
         }
 
+        public bool DeleteItem(Item item)
+        {
+            string resource = string.Format("/api/v2/workspaces/{0}/items/{1}", item.workspaceId, item.id);
+            RestRequest request = new RestRequest(resource, Method.DELETE);
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            IRestResponse<Item> response = m_client.Execute<Item>(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK
+                || response.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        [Obsolete("not completed yet, do not use.")]
+        public ItemDetail AddItem(long workspaceId, ItemDetail newItem)
+        {
+            string resource = string.Format("/api/v2/workspaces/{0}/items", workspaceId);
+            RestRequest request = new RestRequest(resource, Method.POST);
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            request.AddBody(newItem);
+
+            IRestResponse<ItemDetail> response = m_client.Execute<ItemDetail>(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return response.Data;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        public PagedCollection<File> GetAttachments(Item item)
+        {
+            string resource = string.Format("/api/v2/workspaces/{0}/items/{1}/files", item.workspaceId, item.id);
+
+            RestRequest request = new RestRequest(resource, Method.GET);
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            IRestResponse<PagedCollection<File>> response = m_client.Execute<PagedCollection<File>>(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return response.Data;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        public File CheckoutFile(File file)
+        {
+            string resource = string.Format("/api/v2/workspaces/{0}/items/{1}/files/{2}/checkout", file.workspaceId,file.itemId, file.id);
+
+            RestRequest request = new RestRequest(resource, Method.POST);
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            IRestResponse<File> response = m_client.Execute<File>(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return response.Data;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public bool UndoCheckout(File file)
+        {
+            string resource = string.Format("/api/v2/workspaces/{0}/items/{1}/files/{2}/checkout", file.workspaceId, file.itemId, file.id);
+
+            RestRequest request = new RestRequest(resource, Method.DELETE);
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            IRestResponse<File> response = m_client.Execute<File>(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK 
+                ||response.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public bool DeleteFile(File file)
+        {
+            string resource = string.Format("/api/v2/workspaces/{0}/items/{1}/files/{2}", file.workspaceId, file.itemId, file.id);
+
+            RestRequest request = new RestRequest(resource, Method.DELETE);
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            IRestResponse<File> response = m_client.Execute<File>(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK
+                || response.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         private void AddCookies(RestRequest request)
         {
