@@ -119,7 +119,7 @@ namespace Autodesk.Adn.PLM360API
             RestRequest request = new RestRequest("/api/v2/authentication/logout", Method.POST);
 
             request.AddHeader("content-type", "application/json");
-            request.AddHeader("accept", "application/json");
+            request.AddHeader("Accept", "application/json");
 
             //add cookies which contains the login information
             AddCookies(request);
@@ -143,8 +143,7 @@ namespace Autodesk.Adn.PLM360API
 
             RestRequest request = new RestRequest("/api/v2/workspaces", Method.GET);
            
-            request.AddHeader("content-type", "application/json");
-            request.AddHeader("accept", "application/json");
+            request.AddHeader("Accept", "application/json");
    
             //add cookies which contains the login information
             AddCookies(request);
@@ -168,7 +167,6 @@ namespace Autodesk.Adn.PLM360API
             string resource = string.Format("/api/v2/workspaces/{0}",id);
             RestRequest request = new RestRequest(resource, Method.GET);
 
-            request.AddHeader("content-type", "application/json");
             request.AddHeader("accept", "application/json");
 
             //add cookies which contains the login information
@@ -202,8 +200,7 @@ namespace Autodesk.Adn.PLM360API
                        
             RestRequest request = new RestRequest(resource, Method.GET);
 
-            request.AddHeader("content-type", "application/json");
-            request.AddHeader("accept", "application/json");
+            request.AddHeader("Accept", "application/json");
 
             //add cookies which contains the login information
             AddCookies(request);
@@ -225,8 +222,7 @@ namespace Autodesk.Adn.PLM360API
             string resource = string.Format("/api/v2/workspaces/{0}/items/{1}", workspaceId, itemId);
             RestRequest request = new RestRequest(resource, Method.GET);
 
-            request.AddHeader("content-type", "application/json");
-            request.AddHeader("accept", "application/json");
+            request.AddHeader("Accept", "application/json");
 
             //add cookies which contains the login information
             AddCookies(request);
@@ -249,8 +245,7 @@ namespace Autodesk.Adn.PLM360API
             string resource = string.Format("/api/v2/workspaces/{0}/items/{1}", item.workspaceId, item.id);
             RestRequest request = new RestRequest(resource, Method.DELETE);
 
-            request.AddHeader("content-type", "application/json");
-            request.AddHeader("accept", "application/json");
+            request.AddHeader("Accept", "application/json");
 
             //add cookies which contains the login information
             AddCookies(request);
@@ -275,7 +270,7 @@ namespace Autodesk.Adn.PLM360API
             RestRequest request = new RestRequest(resource, Method.POST);
 
             request.AddHeader("content-type", "application/json");
-            request.AddHeader("accept", "application/json");
+            request.AddHeader("Accept", "application/json");
 
             //add cookies which contains the login information
             AddCookies(request);
@@ -295,14 +290,39 @@ namespace Autodesk.Adn.PLM360API
 
         }
 
-        public PagedCollection<File> GetAttachments(Item item)
+        [Obsolete("not completed yet, do not use.")]
+        public ItemDetail UpdateItem(long workspaceId, long itemId, ItemDetail newItem)
+        {
+            string resource = string.Format("/api/v2/workspaces/{0}/items/{1}", workspaceId, itemId);
+            RestRequest request = new RestRequest(resource, Method.PUT);
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            request.AddBody(newItem);
+
+            IRestResponse<ItemDetail> response = m_client.Execute<ItemDetail>(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return response.Data;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public PagedCollection<File> GetFiles(Item item)
         {
             string resource = string.Format("/api/v2/workspaces/{0}/items/{1}/files", item.workspaceId, item.id);
 
             RestRequest request = new RestRequest(resource, Method.GET);
 
-            request.AddHeader("content-type", "application/json");
-            request.AddHeader("accept", "application/json");
+            request.AddHeader("Accept", "application/json");
 
             //add cookies which contains the login information
             AddCookies(request);
@@ -322,12 +342,17 @@ namespace Autodesk.Adn.PLM360API
 
         public File CheckoutFile(File file)
         {
-            string resource = string.Format("/api/v2/workspaces/{0}/items/{1}/files/{2}/checkout", file.workspaceId,file.itemId, file.id);
+            return CheckoutFile(file.workspaceId, file.itemId, file.id);
+        }
+
+        public File CheckoutFile(long workspaceId, long itemId, long fileId)
+        {
+            string resource = string.Format("/api/v2/workspaces/{0}/items/{1}/files/{2}/checkout", workspaceId, itemId, fileId);
 
             RestRequest request = new RestRequest(resource, Method.POST);
 
             request.AddHeader("content-type", "application/json");
-            request.AddHeader("accept", "application/json");
+            request.AddHeader("Accept", "application/json");
 
             //add cookies which contains the login information
             AddCookies(request);
@@ -342,6 +367,7 @@ namespace Autodesk.Adn.PLM360API
             {
                 return null;
             }
+
         }
 
         public bool UndoCheckout(File file)
@@ -350,8 +376,7 @@ namespace Autodesk.Adn.PLM360API
 
             RestRequest request = new RestRequest(resource, Method.DELETE);
 
-            request.AddHeader("content-type", "application/json");
-            request.AddHeader("accept", "application/json");
+            request.AddHeader("Accept", "application/json");
 
             //add cookies which contains the login information
             AddCookies(request);
@@ -370,14 +395,91 @@ namespace Autodesk.Adn.PLM360API
 
         }
 
+        [Obsolete]
+        public File Checkin(long workspaceId, long itemId, long fileId, byte[] fileContent)
+        {
+            string resource = string.Format("/api/v2/workspaces/{0}/items/{1}/files/{2}/checkout", workspaceId, itemId, fileId);
+
+            RestRequest request = new RestRequest(resource, Method.POST);
+
+            request.AddHeader("content-type", "multipart/mixed");
+            request.AddHeader("Accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            
+
+            IRestResponse<File> response = m_client.Execute<File>(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return response.Data;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        [Obsolete("not completed yet, do not use.")]
+        public File AddFile(long workspaceId, long itemId, FileUploadRequest fileUpReq, byte[] fileContent)
+        {
+
+            if (fileContent.Length > 512*1024*1024)
+            {
+                throw new Exception("File is too large beyond of PLM360's file limitation: 512M");
+            }
+
+            string resource = string.Format("/api/v2/workspaces/{0}/items/{1}/files", workspaceId, itemId);
+
+            RestRequest request = new RestRequest(resource, Method.POST);
+            //request.RequestFormat = DataFormat.Json;
+
+            request.AddHeader("content-type", "multipart/mixed");
+            //request.AddHeader("Accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            request.AddBody(fileUpReq);
+            //request.AddBody(fileContent);
+            //request.AddParameter("multipart/mixed", fileContent, ParameterType.RequestBody);
+            
+            //request.AddFile("file", fileContent, fileUpReq.fileName);
+            
+            IRestResponse<PagedCollection<File>> response = m_client.Execute<PagedCollection<File>>(request);
+
+            PagedCollection<File> allFile;
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK
+                || response.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                allFile = response.Data;
+
+                if (allFile != null)
+                {
+                    return allFile.elements.SingleOrDefault<File>(f => f.fileName == fileUpReq.fileName);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
         public bool DeleteFile(File file)
         {
             string resource = string.Format("/api/v2/workspaces/{0}/items/{1}/files/{2}", file.workspaceId, file.itemId, file.id);
 
             RestRequest request = new RestRequest(resource, Method.DELETE);
 
-            request.AddHeader("content-type", "application/json");
-            request.AddHeader("accept", "application/json");
+            request.AddHeader("Accept", "application/json");
 
             //add cookies which contains the login information
             AddCookies(request);
@@ -394,6 +496,63 @@ namespace Autodesk.Adn.PLM360API
                 return false;
             }
         }
+
+        public File GetFile(long workspaceId, long itemId, long fileId)
+        {
+            string resource = string.Format("/api/v2/workspaces/{0}/items/{1}/files/{2}", workspaceId, itemId, fileId);
+
+            RestRequest request = new RestRequest(resource, Method.GET);
+
+            request.AddHeader("Accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            IRestResponse<File> response = m_client.Execute<File>(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return response.Data;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public bool GetFileContent(File file, string fileName)
+        {
+
+            string resource = string.Format("/api/v2/workspaces/{0}/items/{1}/files/{2}", file.workspaceId, file.itemId, file.id);
+
+            RestRequest request = new RestRequest(resource, Method.GET);
+
+            request.AddHeader("Accept", "application/octet-stream"); // "Accept", A must be captal 
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            IRestResponse response = m_client.Execute(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                try
+                {
+                    System.IO.File.WriteAllBytes(fileName, response.RawBytes);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
 
         private void AddCookies(RestRequest request)
         {

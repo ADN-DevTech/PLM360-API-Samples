@@ -28,18 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("<empty, Login first>");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("<empty, Login first>");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem19 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem20 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginToolStripMenuItemLogin = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutToolStripMenuItemLogout = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateItemTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tvWorkspaces = new System.Windows.Forms.TreeView();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
@@ -54,6 +56,8 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBoxPageSize = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonDeleteItem = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonCloneItem = new System.Windows.Forms.ToolStripButton();
             this.lvWorkspaceItems = new System.Windows.Forms.ListView();
             this.Id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.versionId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -70,14 +74,14 @@
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDownload = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonUploadFile = new System.Windows.Forms.ToolStripButton();
             this.listViewAttachments = new System.Windows.Forms.ListView();
             this.FileId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.FileTitile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.FileVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.FileStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.toolStripButtonDeleteItem = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonCloneItem = new System.Windows.Forms.ToolStripButton();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -87,7 +91,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loginToolStripMenuItem,
-            this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces});
+            this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces,
+            this.itemsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1233, 28);
@@ -124,6 +129,21 @@
             this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces.Text = "Refresh Workspaces";
             this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces.Click += new System.EventHandler(this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces_Click);
             // 
+            // itemsToolStripMenuItem
+            // 
+            this.itemsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.updateItemTestToolStripMenuItem});
+            this.itemsToolStripMenuItem.Name = "itemsToolStripMenuItem";
+            this.itemsToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
+            this.itemsToolStripMenuItem.Text = "Items";
+            // 
+            // updateItemTestToolStripMenuItem
+            // 
+            this.updateItemTestToolStripMenuItem.Name = "updateItemTestToolStripMenuItem";
+            this.updateItemTestToolStripMenuItem.Size = new System.Drawing.Size(192, 24);
+            this.updateItemTestToolStripMenuItem.Text = "Update Item Test";
+            this.updateItemTestToolStripMenuItem.Click += new System.EventHandler(this.updateItemTestToolStripMenuItem_Click);
+            // 
             // tvWorkspaces
             // 
             this.tvWorkspaces.Dock = System.Windows.Forms.DockStyle.Left;
@@ -131,10 +151,10 @@
             this.tvWorkspaces.HideSelection = false;
             this.tvWorkspaces.Location = new System.Drawing.Point(0, 28);
             this.tvWorkspaces.Name = "tvWorkspaces";
-            treeNode4.Name = "Node0";
-            treeNode4.Text = "<empty, Login first>";
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "<empty, Login first>";
             this.tvWorkspaces.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode4});
+            treeNode1});
             this.tvWorkspaces.Size = new System.Drawing.Size(304, 650);
             this.tvWorkspaces.TabIndex = 2;
             this.tvWorkspaces.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvWorkspaces_AfterSelect);
@@ -248,6 +268,26 @@
             this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
+            // toolStripButtonDeleteItem
+            // 
+            this.toolStripButtonDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDeleteItem.Image")));
+            this.toolStripButtonDeleteItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonDeleteItem.Name = "toolStripButtonDeleteItem";
+            this.toolStripButtonDeleteItem.Size = new System.Drawing.Size(91, 40);
+            this.toolStripButtonDeleteItem.Text = "Delete Item";
+            this.toolStripButtonDeleteItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButtonDeleteItem.Click += new System.EventHandler(this.toolStripButtonDeleteItem_Click);
+            // 
+            // toolStripButtonCloneItem
+            // 
+            this.toolStripButtonCloneItem.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCloneItem.Image")));
+            this.toolStripButtonCloneItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonCloneItem.Name = "toolStripButtonCloneItem";
+            this.toolStripButtonCloneItem.Size = new System.Drawing.Size(85, 40);
+            this.toolStripButtonCloneItem.Text = "Clone Item";
+            this.toolStripButtonCloneItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButtonCloneItem.Click += new System.EventHandler(this.toolStripButtonCloneItem_Click);
+            // 
             // lvWorkspaceItems
             // 
             this.lvWorkspaceItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -261,11 +301,11 @@
             this.lvWorkspaceItems.GridLines = true;
             this.lvWorkspaceItems.HideSelection = false;
             this.lvWorkspaceItems.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem16,
-            listViewItem17,
-            listViewItem18,
-            listViewItem19,
-            listViewItem20});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5});
             this.lvWorkspaceItems.Location = new System.Drawing.Point(317, 71);
             this.lvWorkspaceItems.MultiSelect = false;
             this.lvWorkspaceItems.Name = "lvWorkspaceItems";
@@ -343,7 +383,8 @@
             this.toolStripButtonUndoCheckout,
             this.toolStripButton4,
             this.toolStripButton5,
-            this.toolStripButtonDownload});
+            this.toolStripButtonDownload,
+            this.toolStripButtonUploadFile});
             this.toolStrip2.Location = new System.Drawing.Point(810, 375);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(423, 43);
@@ -399,6 +440,14 @@
             this.toolStripButtonDownload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonDownload.Click += new System.EventHandler(this.toolStripButtonDownload_Click);
             // 
+            // toolStripButtonUploadFile
+            // 
+            this.toolStripButtonUploadFile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonUploadFile.Name = "toolStripButtonUploadFile";
+            this.toolStripButtonUploadFile.Size = new System.Drawing.Size(62, 24);
+            this.toolStripButtonUploadFile.Text = "Upload";
+            this.toolStripButtonUploadFile.Click += new System.EventHandler(this.toolStripButtonUploadFile_Click);
+            // 
             // listViewAttachments
             // 
             this.listViewAttachments.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -434,25 +483,9 @@
             // 
             this.FileStatus.Text = "Status";
             // 
-            // toolStripButtonDeleteItem
+            // openFileDialog1
             // 
-            this.toolStripButtonDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDeleteItem.Image")));
-            this.toolStripButtonDeleteItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonDeleteItem.Name = "toolStripButtonDeleteItem";
-            this.toolStripButtonDeleteItem.Size = new System.Drawing.Size(91, 40);
-            this.toolStripButtonDeleteItem.Text = "Delete Item";
-            this.toolStripButtonDeleteItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolStripButtonDeleteItem.Click += new System.EventHandler(this.toolStripButtonDeleteItem_Click);
-            // 
-            // toolStripButtonCloneItem
-            // 
-            this.toolStripButtonCloneItem.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCloneItem.Image")));
-            this.toolStripButtonCloneItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonCloneItem.Name = "toolStripButtonCloneItem";
-            this.toolStripButtonCloneItem.Size = new System.Drawing.Size(85, 40);
-            this.toolStripButtonCloneItem.Text = "Clone Item";
-            this.toolStripButtonCloneItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolStripButtonCloneItem.Click += new System.EventHandler(this.toolStripButtonCloneItem_Click);
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -531,6 +564,10 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripButton toolStripButtonDeleteItem;
         private System.Windows.Forms.ToolStripButton toolStripButtonCloneItem;
+        private System.Windows.Forms.ToolStripMenuItem itemsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateItemTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButtonUploadFile;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

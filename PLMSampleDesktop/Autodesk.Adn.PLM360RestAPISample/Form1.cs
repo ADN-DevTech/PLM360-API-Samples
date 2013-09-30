@@ -178,7 +178,7 @@ namespace Autodesk.Adn.PLM360RestAPISample
 
         private void BindItemAttachment(Item item)
         {
-            PagedCollection<File> attachments = plmSvc.GetAttachments(item);
+            PagedCollection<File> attachments = plmSvc.GetFiles(item);
             if (attachments == null) return;
 
             listViewAttachments.BeginUpdate();
@@ -297,8 +297,16 @@ namespace Autodesk.Adn.PLM360RestAPISample
             saveFileDialog1.FileName = file.fileName; //default filename
             if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                //TODO: 
+                bool success = plmSvc.GetFileContent(file, saveFileDialog1.FileName);
 
+                if (success)
+                {
+                    MessageBox.Show("File is downloaded to " + saveFileDialog1.FileName);
+                }
+                else
+                {
+                    MessageBox.Show("Error when downloading file. ");
+                }
             }
 
         }
@@ -393,6 +401,68 @@ namespace Autodesk.Adn.PLM360RestAPISample
 
             //}
 
+        }
+
+        private void updateItemTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem lvi in lvWorkspaceItems.SelectedItems)
+            {
+
+                Item item = (Item)lvi.Tag;
+
+                ItemDetail newItem = new ItemDetail
+                {
+                    ////id = item.id,
+                    //deleted = false,
+                    //fields = item.fields,
+                    //isLatestVersion = true,
+                    //isWorkingVersion = true,
+                    itemDescriptor = item.itemDescriptor + " - Updated",
+                    //rootId = item.rootId,
+                    //picklistFields = item.picklistFields,
+                    //revision = item.revision,
+                    ////url = item.url,
+                    //version = item.version,
+                    ////workspaceId = item.workspaceId
+
+                };
+
+                ItemDetail nweAddedItem = plmSvc.UpdateItem(item.workspaceId, item.id, newItem);
+
+            }
+
+        }
+
+        private void toolStripButtonUploadFile_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                System.IO.Stream stream = openFileDialog1.OpenFile();
+
+                byte[] fileContents;
+                fileContents = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
+
+                if (fileContents.Length > 512 * 1024 * 1024)
+                {
+                    MessageBox.Show("File is too large beyond of PLM360's file limitation: 512M");
+                    return;
+                }
+
+                FileUploadRequest fileUpReq = new FileUploadRequest
+                {
+                    fileName = System.IO.Path.GetFileName(openFileDialog1.FileName), 
+                    title = System.IO.Path.GetFileNameWithoutExtension(openFileDialog1.FileName), 
+                    description = "This is a file uploaded by PLM360 REST API"
+
+                };
+
+                foreach (ListViewItem lvi in lvWorkspaceItems.SelectedItems)
+                {
+                    Item item = (Item)lvi.Tag;
+                    plmSvc.AddFile(item.workspaceId, item.id, fileUpReq, fileContents);
+
+                }
+            }
         }
 
     }
