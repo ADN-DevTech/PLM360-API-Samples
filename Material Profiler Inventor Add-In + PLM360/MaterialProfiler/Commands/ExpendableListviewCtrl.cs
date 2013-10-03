@@ -558,10 +558,15 @@ namespace MaterialProfiler
         // Cloud Part - PLM
         //
         ////////////////////////////////////////////////////////////////////////////
-        private const string ConsumerSecret = "a7096642-dbd5-46e0-b11d-afca3cd015b3";
-        private const string ConsumerKey = "c3308550-1a0b-4786-ae29-14a9fe9dcfde";
-        private const string BaseURL = "https://accounts.autodesk.com";
-        private const string TanentName = "adsknagyad";
+
+	// Hard coded consumer, secret keys and base URL.
+        // In real world Apps, these values need to secured.
+        // One approach is to encrypt and/or obfuscate these values
+
+        private const string ConsumerSecret = "**********";
+        private const string ConsumerKey = "**********";
+        private const string BaseURL = "**********";
+        private const string TanentName = "**********";
 
         List<string> _missingMaterials = new List<string>();
 
@@ -589,7 +594,7 @@ namespace MaterialProfiler
 
             if (_loggedIn)
             {
-                _plmSvc = new PLM360RestService("adsknagyad");
+                _plmSvc = new PLM360RestService(TanentName);
 
                 Session session = await _plmSvc.DoLoginAsync(
                     _connector.ConsumerKey,
