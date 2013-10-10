@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using RestSharp;
 using RestSharp.Authenticators;
 using Autodesk.Adn.OAuthentication;
+using Newtonsoft.Json;
 
 namespace Autodesk.Adn.PLM360API
 
@@ -263,34 +264,44 @@ namespace Autodesk.Adn.PLM360API
             }
         }
 
-        [Obsolete("not completed yet, do not use.")]
+
+        [Obsolete("not fully tested yet, do not use.")]
         public ItemDetail AddItem(long workspaceId, ItemDetail newItem)
         {
-            string resource = string.Format("/api/v2/workspaces/{0}/items", workspaceId);
+            string resource = string.Format("/api/v2/workspaces/{0}/items/", workspaceId);
+
             RestRequest request = new RestRequest(resource, Method.POST);
 
             request.AddHeader("content-type", "application/json");
-            request.AddHeader("Accept", "application/json");
+            request.AddHeader("accept", "application/json");
+
+            string json = JsonConvert.SerializeObject(newItem);
+
+            request.AddParameter(
+                "application/json; charset=utf-8",
+                json,
+                ParameterType.RequestBody);
+
+            request.RequestFormat = DataFormat.Json;
 
             //add cookies which contains the login information
             AddCookies(request);
-
-            request.AddBody(newItem);
 
             IRestResponse<ItemDetail> response = m_client.Execute<ItemDetail>(request);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return response.Data;
+                return response.Data;  //TODO: always null, why? 
             }
             else
             {
                 return null;
             }
 
+
         }
 
-        [Obsolete("not completed yet, do not use.")]
+        [Obsolete("not fully tested yet, do not use.")]
         public ItemDetail UpdateItem(long workspaceId, long itemId, ItemDetail newItem)
         {
             string resource = string.Format("/api/v2/workspaces/{0}/items/{1}", workspaceId, itemId);
@@ -302,13 +313,20 @@ namespace Autodesk.Adn.PLM360API
             //add cookies which contains the login information
             AddCookies(request);
 
-            request.AddBody(newItem);
+            string json = JsonConvert.SerializeObject(newItem);
+
+            request.AddParameter(
+                "application/json; charset=utf-8",
+                json,
+                ParameterType.RequestBody);
+
+            request.RequestFormat = DataFormat.Json;
 
             IRestResponse<ItemDetail> response = m_client.Execute<ItemDetail>(request);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return response.Data;
+                return response.Data;  //TODO: always null, why? 
             }
             else
             {
@@ -553,6 +571,101 @@ namespace Autodesk.Adn.PLM360API
         }
 
 
+
+        public PagedCollection<FieldType> GetFiledTypes()
+        {
+            string resource = "/api/v2/field-types";
+
+            RestRequest request = new RestRequest(resource, Method.GET);
+
+            request.AddHeader("Accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            IRestResponse<PagedCollection<FieldType>> response = m_client.Execute<PagedCollection<FieldType>>(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return response.Data;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public PagedCollection<Picklist> GetPickLists()
+        {
+            string resource = "/api/v2/picklists";
+
+            RestRequest request = new RestRequest(resource, Method.GET);
+
+            request.AddHeader("Accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            IRestResponse<PagedCollection<Picklist>> response = m_client.Execute<PagedCollection<Picklist>>(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return response.Data;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        [Obsolete("do not use, Reserved for future use.")]
+        public Picklist GetPickListById(string picklistId)
+        {
+            //string resource = pickList.url.Substring(pickList.url.IndexOf("/api/v2"));
+            string resource = string.Format("/api/v2/picklists/{0}",picklistId);
+
+            RestRequest request = new RestRequest(resource, Method.GET);
+
+            request.AddHeader("Accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            IRestResponse<Picklist> response = m_client.Execute<Picklist>(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return response.Data;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public PagedCollection<PicklistType> GetPickListValues(Picklist pickList)
+        {
+            string resource = pickList.picklistValuesUrl.Substring(pickList.url.IndexOf("/api/v2"));
+           
+
+            RestRequest request = new RestRequest(resource, Method.GET);
+
+            request.AddHeader("Accept", "application/json");
+
+            //add cookies which contains the login information
+            AddCookies(request);
+
+            IRestResponse<PagedCollection<PicklistType>> response = m_client.Execute<PagedCollection<PicklistType>>(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return response.Data;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         private void AddCookies(RestRequest request)
         {

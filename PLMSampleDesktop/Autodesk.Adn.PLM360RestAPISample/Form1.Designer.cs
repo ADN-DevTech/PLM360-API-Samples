@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("<empty, Login first>");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("<empty, Login first>");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginToolStripMenuItemLogin = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +58,7 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonCloneItem = new System.Windows.Forms.ToolStripButton();
-            this.lvWorkspaceItems = new System.Windows.Forms.ListView();
+            this.lvItems = new System.Windows.Forms.ListView();
             this.Id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.versionId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.release = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -124,6 +124,7 @@
             // 
             // refreshWorkspacesToolStripMenuItemRefreshWorkspaces
             // 
+            this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces.Enabled = false;
             this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces.Name = "refreshWorkspacesToolStripMenuItemRefreshWorkspaces";
             this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces.Size = new System.Drawing.Size(153, 24);
             this.refreshWorkspacesToolStripMenuItemRefreshWorkspaces.Text = "Refresh Workspaces";
@@ -136,12 +137,14 @@
             this.itemsToolStripMenuItem.Name = "itemsToolStripMenuItem";
             this.itemsToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
             this.itemsToolStripMenuItem.Text = "Items";
+            this.itemsToolStripMenuItem.Visible = false;
             // 
             // updateItemTestToolStripMenuItem
             // 
             this.updateItemTestToolStripMenuItem.Name = "updateItemTestToolStripMenuItem";
             this.updateItemTestToolStripMenuItem.Size = new System.Drawing.Size(192, 24);
             this.updateItemTestToolStripMenuItem.Text = "Update Item Test";
+            this.updateItemTestToolStripMenuItem.Visible = false;
             this.updateItemTestToolStripMenuItem.Click += new System.EventHandler(this.updateItemTestToolStripMenuItem_Click);
             // 
             // tvWorkspaces
@@ -151,10 +154,10 @@
             this.tvWorkspaces.HideSelection = false;
             this.tvWorkspaces.Location = new System.Drawing.Point(0, 28);
             this.tvWorkspaces.Name = "tvWorkspaces";
-            treeNode1.Name = "Node0";
-            treeNode1.Text = "<empty, Login first>";
+            treeNode3.Name = "Node0";
+            treeNode3.Text = "<empty, Login first>";
             this.tvWorkspaces.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode3});
             this.tvWorkspaces.Size = new System.Drawing.Size(304, 650);
             this.tvWorkspaces.TabIndex = 2;
             this.tvWorkspaces.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvWorkspaces_AfterSelect);
@@ -288,32 +291,32 @@
             this.toolStripButtonCloneItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonCloneItem.Click += new System.EventHandler(this.toolStripButtonCloneItem_Click);
             // 
-            // lvWorkspaceItems
+            // lvItems
             // 
-            this.lvWorkspaceItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Id,
             this.versionId,
             this.release,
             this.descripter,
             this.deleted});
-            this.lvWorkspaceItems.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lvWorkspaceItems.FullRowSelect = true;
-            this.lvWorkspaceItems.GridLines = true;
-            this.lvWorkspaceItems.HideSelection = false;
-            this.lvWorkspaceItems.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5});
-            this.lvWorkspaceItems.Location = new System.Drawing.Point(317, 71);
-            this.lvWorkspaceItems.MultiSelect = false;
-            this.lvWorkspaceItems.Name = "lvWorkspaceItems";
-            this.lvWorkspaceItems.Size = new System.Drawing.Size(483, 607);
-            this.lvWorkspaceItems.TabIndex = 9;
-            this.lvWorkspaceItems.UseCompatibleStateImageBehavior = false;
-            this.lvWorkspaceItems.View = System.Windows.Forms.View.Details;
-            this.lvWorkspaceItems.SelectedIndexChanged += new System.EventHandler(this.lvWorkspaceItems_SelectedIndexChanged);
+            this.lvItems.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lvItems.FullRowSelect = true;
+            this.lvItems.GridLines = true;
+            this.lvItems.HideSelection = false;
+            this.lvItems.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem11,
+            listViewItem12,
+            listViewItem13,
+            listViewItem14,
+            listViewItem15});
+            this.lvItems.Location = new System.Drawing.Point(317, 71);
+            this.lvItems.MultiSelect = false;
+            this.lvItems.Name = "lvItems";
+            this.lvItems.Size = new System.Drawing.Size(483, 607);
+            this.lvItems.TabIndex = 9;
+            this.lvItems.UseCompatibleStateImageBehavior = false;
+            this.lvItems.View = System.Windows.Forms.View.Details;
+            this.lvItems.SelectedIndexChanged += new System.EventHandler(this.lvItems_SelectedIndexChanged);
             // 
             // Id
             // 
@@ -446,6 +449,7 @@
             this.toolStripButtonUploadFile.Name = "toolStripButtonUploadFile";
             this.toolStripButtonUploadFile.Size = new System.Drawing.Size(62, 24);
             this.toolStripButtonUploadFile.Text = "Upload";
+            this.toolStripButtonUploadFile.Visible = false;
             this.toolStripButtonUploadFile.Click += new System.EventHandler(this.toolStripButtonUploadFile_Click);
             // 
             // listViewAttachments
@@ -498,7 +502,7 @@
             this.Controls.Add(this.props);
             this.Controls.Add(this.splitter4);
             this.Controls.Add(this.splitter3);
-            this.Controls.Add(this.lvWorkspaceItems);
+            this.Controls.Add(this.lvItems);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.splitter2);
             this.Controls.Add(this.splitter1);
@@ -532,7 +536,7 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxPageSize;
         private System.Windows.Forms.ToolStripButton toolStripButtonPreviousPage;
         private System.Windows.Forms.ToolStripButton toolStripButtonNextPage;
-        private System.Windows.Forms.ListView lvWorkspaceItems;
+        private System.Windows.Forms.ListView lvItems;
         private System.Windows.Forms.ColumnHeader Id;
         private System.Windows.Forms.ColumnHeader versionId;
         private System.Windows.Forms.ColumnHeader release;

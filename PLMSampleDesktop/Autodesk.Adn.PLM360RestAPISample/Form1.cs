@@ -60,6 +60,7 @@ namespace Autodesk.Adn.PLM360RestAPISample
                 return;
             }
 
+            refreshWorkspacesToolStripMenuItemRefreshWorkspaces.Enabled = true;
             BindWorkspaces();
 
             Cursor.Current = Cursors.Default;
@@ -111,12 +112,7 @@ namespace Autodesk.Adn.PLM360RestAPISample
 
             Cursor.Current = Cursors.WaitCursor;
 
-            long page = 1;
-            long.TryParse(toolStripTextBoxPageNumber.Text.Trim(), out page);
-            long pageSize = 100;
-            long.TryParse(toolStripTextBoxPageSize.Text.Trim(), out pageSize);
-
-            DisplayWorkItems(currentWorkspaceId,page, pageSize);
+            BindItems();
             
 
             Cursor.Current = Cursors.Default;
@@ -125,10 +121,20 @@ namespace Autodesk.Adn.PLM360RestAPISample
             
         }
 
+        private void BindItems()
+        {
+            long page = 1;
+            long.TryParse(toolStripTextBoxPageNumber.Text.Trim(), out page);
+            long pageSize = 100;
+            long.TryParse(toolStripTextBoxPageSize.Text.Trim(), out pageSize);
+
+            DisplayWorkItems(currentWorkspaceId, page, pageSize);
+        }
+
         private void DisplayWorkItems(long workspaceId, long? page, long? pageSize)
         {
-            lvWorkspaceItems.BeginUpdate();
-            lvWorkspaceItems.Items.Clear();
+            lvItems.BeginUpdate();
+            lvItems.Items.Clear();
             PagedCollection<Item> items = plmSvc.GetItems(workspaceId, page, pageSize);
             if (items == null) return;
 
@@ -145,19 +151,19 @@ namespace Autodesk.Adn.PLM360RestAPISample
                     (item.deleted.HasValue && item.deleted == true ?"Deleted":"")
                 };
                 lvi.SubItems.AddRange(values);
-                lvWorkspaceItems.Items.Add(lvi);
+                lvItems.Items.Add(lvi);
             }
 
-            lvWorkspaceItems.EndUpdate();
+            lvItems.EndUpdate();
 
             // clear the properties pane
             props.SelectedObject = null;
         }
 
-        private void lvWorkspaceItems_SelectedIndexChanged(object sender, EventArgs e)
+        private void lvItems_SelectedIndexChanged(object sender, EventArgs e)
         {
             //add properties
-            foreach (ListViewItem lvi in lvWorkspaceItems.SelectedItems)
+            foreach (ListViewItem lvi in lvItems.SelectedItems)
             {
                 Cursor.Current = Cursors.WaitCursor;
                 Item partialItem = (Item)lvi.Tag;
@@ -167,10 +173,12 @@ namespace Autodesk.Adn.PLM360RestAPISample
                 if (fullItem != null)
                 {
                     props.SelectedObject = new ItemPropertyGrid(fullItem);
+
+                    //Get item attachments
+                    BindItemAttachment(fullItem);
                 }
 
-                //Get item attachments
-                BindItemAttachment(fullItem);
+
                 
                 Cursor.Current = Cursors.Default;
             }
@@ -206,6 +214,7 @@ namespace Autodesk.Adn.PLM360RestAPISample
         private void logoutToolStripMenuItemLogout_Click(object sender, EventArgs e)
         {
             plmSvc.Logout();
+            refreshWorkspacesToolStripMenuItemRefreshWorkspaces.Enabled = false;
         }
 
         private void toolStripButtonNextPage_Click(object sender, EventArgs e)
@@ -354,7 +363,7 @@ namespace Autodesk.Adn.PLM360RestAPISample
 
         private void toolStripButtonDeleteItem_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem lvi in lvWorkspaceItems.SelectedItems)
+            foreach (ListViewItem lvi in lvItems.SelectedItems)
             {
 
                 Item item = (Item)lvi.Tag;
@@ -363,7 +372,7 @@ namespace Autodesk.Adn.PLM360RestAPISample
                     bool success = plmSvc.DeleteItem(item);
                     if (success)
                     {
-                        lvWorkspaceItems.Items.Remove(lvi);
+                        lvItems.Items.Remove(lvi);
                     }
                     else
                     {
@@ -375,40 +384,80 @@ namespace Autodesk.Adn.PLM360RestAPISample
 
         private void toolStripButtonCloneItem_Click(object sender, EventArgs e)
         {
-            //foreach (ListViewItem lvi in lvWorkspaceItems.SelectedItems)
-            //{
 
-            //    Item item = (Item)lvi.Tag;
+            foreach (ListViewItem lvi in lvItems.SelectedItems)
+            {
 
-            //    ItemDetail newItem = new ItemDetail
-            //    {
-            //        //id = item.id,
-            //        deleted = false,
-            //        fields = item.fields,
-            //        isLatestVersion = true,
-            //        isWorkingVersion = true,
-            //        itemDescriptor = item.itemDescriptor + " - Clone",
-            //        rootId = item.rootId,
-            //        picklistFields = item.picklistFields,
-            //        revision = item.revision,
-            //        //url = item.url,
-            //        version = item.version,
-            //        //workspaceId = item.workspaceId
+                Item itemMeta = (Item)lvi.Tag;
+                //get the complete item information
+                Item item = plmSvc.GetItem(itemMeta.workspaceId, itemMeta.id);
 
-            //    };
+                Dictionary<string, string> newFields = new Dictionary<string, string>();
+                foreach (var field in item.fields)
+                {
+                    //TODO: do data validation here
 
-            //    ItemDetail nweAddedItem = plmSvc.AddItem(item.workspaceId,newItem);
+                    if(IsBoolean(field.Value) || IsDateTime(field.Value) || IsNumeric(field.Value))
+                        newFields.Add(field.Key,field.Value);
+                    else
+                        newFields.Add(field.Key, field.Value + "--Clone"); 
+                }
 
-            //}
+                Dictionary<string, List<PicklistValue>> newPicklistFields = new Dictionary<string, List<PicklistValue>>();
+                foreach (var pklstFld in item.picklistFields)
+                {
+                    newPicklistFields.Add(pklstFld.Key, pklstFld.Value);
+                }
 
+                ItemDetail newItem = new ItemDetail
+                {
+                    ////id = item.id,
+                    //deleted = false,
+                    //fields = item.fields,
+                    isLatestVersion = true,
+                    isWorkingVersion = true,
+                    //itemDescriptor = item.itemDescriptor + " - Updated",
+                    //rootId = item.rootId,
+                    fields = newFields,
+                    picklistFields = newPicklistFields,
+                    //picklistFields = item.picklistFields,
+                    //revision = item.revision,
+                    ////url = item.url,
+                    //version = item.version,
+                    ////workspaceId = item.workspaceId
+
+                };
+
+                ItemDetail nweAddedItem = plmSvc.AddItem(item.workspaceId, newItem);
+
+                
+                //refresh
+                BindItems();
+              
+                
+            }
         }
 
         private void updateItemTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem lvi in lvWorkspaceItems.SelectedItems)
+            foreach (ListViewItem lvi in lvItems.SelectedItems)
             {
+                
+                Item itemMeta = (Item)lvi.Tag;
+                //get the complete item information
+                Item item = plmSvc.GetItem(itemMeta.workspaceId, itemMeta.id);
 
-                Item item = (Item)lvi.Tag;
+                Dictionary<string, string> newFields = new Dictionary<string, string>();
+                foreach (var field in item.fields)
+                {
+                    newFields.Add(field.Key, field.Value + "--Clone");
+                }
+
+                Dictionary<string, List<PicklistValue>> newPicklistFields = new Dictionary<string, List<PicklistValue>>();
+                foreach (var pklstFld in item.picklistFields)
+                {
+                    newPicklistFields.Add(pklstFld.Key, pklstFld.Value);
+                }
 
                 ItemDetail newItem = new ItemDetail
                 {
@@ -417,8 +466,10 @@ namespace Autodesk.Adn.PLM360RestAPISample
                     //fields = item.fields,
                     //isLatestVersion = true,
                     //isWorkingVersion = true,
-                    itemDescriptor = item.itemDescriptor + " - Updated",
+                    //itemDescriptor = item.itemDescriptor + " - Updated",
                     //rootId = item.rootId,
+                    fields = newFields,
+                    picklistFields = newPicklistFields,
                     //picklistFields = item.picklistFields,
                     //revision = item.revision,
                     ////url = item.url,
@@ -429,6 +480,8 @@ namespace Autodesk.Adn.PLM360RestAPISample
 
                 ItemDetail nweAddedItem = plmSvc.UpdateItem(item.workspaceId, item.id, newItem);
 
+
+                BindItems();
             }
 
         }
@@ -456,7 +509,7 @@ namespace Autodesk.Adn.PLM360RestAPISample
 
                 };
 
-                foreach (ListViewItem lvi in lvWorkspaceItems.SelectedItems)
+                foreach (ListViewItem lvi in lvItems.SelectedItems)
                 {
                     Item item = (Item)lvi.Tag;
                     plmSvc.AddFile(item.workspaceId, item.id, fileUpReq, fileContents);
@@ -465,5 +518,48 @@ namespace Autodesk.Adn.PLM360RestAPISample
             }
         }
 
+
+
+
+        public static bool IsNumeric(string Expression)
+        {
+
+            try
+            {
+                Double.Parse(Expression.ToString());
+                return true;
+            }
+            catch { } // just dismiss errors but return false
+            return false;
+        }
+
+
+        public static bool IsBoolean(string Expression)
+        {
+
+            try
+            {
+                bool.Parse(Expression as string);
+                return true;
+            }
+            catch { } // just dismiss errors but return false
+            return false;
+        }
+
+        public static bool IsDateTime(string Expression)
+        {
+
+            try
+            {
+                DateTime.Parse(Expression as string);
+                return true;
+            }
+            catch { } // just dismiss errors but return false
+            return false;
+        }
+
+
+
     }
 }
+

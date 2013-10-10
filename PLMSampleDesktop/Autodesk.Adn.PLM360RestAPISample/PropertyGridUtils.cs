@@ -62,7 +62,7 @@ namespace Autodesk.Adn.PLM360RestAPISample
 
         public EventDescriptorCollection GetEvents()
         {
-            return TypeDescriptor.GetEvents(this,true);
+            return TypeDescriptor.GetEvents(this, true);
         }
 
         public object GetPropertyOwner(PropertyDescriptor pd)
@@ -104,7 +104,7 @@ namespace Autodesk.Adn.PLM360RestAPISample
     }
 
 
-    class DictionaryPropertyDescriptor: PropertyDescriptor
+    class DictionaryPropertyDescriptor : PropertyDescriptor
     {
         IDictionary dict;
         object key;
@@ -143,8 +143,8 @@ namespace Autodesk.Adn.PLM360RestAPISample
                 return value;
             }
         }
-        
-        
+
+
         private Attribute FindAttribute(Type type)
         {
             Attribute ret = null;
@@ -160,7 +160,8 @@ namespace Autodesk.Adn.PLM360RestAPISample
         }
 
 
-        public DictionaryPropertyDescriptor(AttributeCollection attributes, IDictionary dict, object key): base(key.ToString(),null)
+        public DictionaryPropertyDescriptor(AttributeCollection attributes, IDictionary dict, object key)
+            : base(key.ToString(), null)
         {
             this.attributes = attributes;
             this.dict = dict;
@@ -191,7 +192,7 @@ namespace Autodesk.Adn.PLM360RestAPISample
 
         public override Type PropertyType
         {
-            get 
+            get
             {
                 if (dict[key] != null) return dict[key].GetType();
                 else return typeof(object);
@@ -212,4 +213,43 @@ namespace Autodesk.Adn.PLM360RestAPISample
             return false;
         }
     }
+
+
+    //class PicklistFieldsConverter : ExpandableObjectConverter
+    //{
+    //    public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+    //    {
+    //        if (destinationType == typeof(List<PicklistValue>))
+    //        {
+    //            return true;
+    //        }
+    //        return base.CanConvertTo(context, destinationType);
+    //    }
+
+    //    public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+    //    {
+    //        if (destinationType == typeof(List<PicklistValue>) && value is List<PicklistValue>)
+    //        {
+    //            List<PicklistValue> pklst = (List<PicklistValue>)value;
+
+    //            StringBuilder sb = new StringBuilder();
+    //            foreach (var item in pklst)
+    //            {
+    //                sb.Append(item.GetType().ToString() + ":" + item.displayName + ",");
+    //            }
+
+    //            return sb.ToString();
+    //        }
+    //        return base.ConvertTo(context, culture, value, destinationType);
+    //    }
+
+    //    public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+    //    {
+    //        return base.CanConvertFrom(context, sourceType);
+    //    }
+    //    public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+    //    {
+    //        return base.ConvertFrom(context, culture, value);
+    //    }
+    //}
 }
