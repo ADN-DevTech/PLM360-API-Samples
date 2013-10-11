@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("<empty, Login first>");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("<empty, Login first>");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginToolStripMenuItemLogin = new System.Windows.Forms.ToolStripMenuItem();
@@ -154,10 +154,10 @@
             this.tvWorkspaces.HideSelection = false;
             this.tvWorkspaces.Location = new System.Drawing.Point(0, 28);
             this.tvWorkspaces.Name = "tvWorkspaces";
-            treeNode3.Name = "Node0";
-            treeNode3.Text = "<empty, Login first>";
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "<empty, Login first>";
             this.tvWorkspaces.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode1});
             this.tvWorkspaces.Size = new System.Drawing.Size(304, 650);
             this.tvWorkspaces.TabIndex = 2;
             this.tvWorkspaces.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvWorkspaces_AfterSelect);
@@ -304,15 +304,15 @@
             this.lvItems.GridLines = true;
             this.lvItems.HideSelection = false;
             this.lvItems.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem11,
-            listViewItem12,
-            listViewItem13,
-            listViewItem14,
-            listViewItem15});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5});
             this.lvItems.Location = new System.Drawing.Point(317, 71);
             this.lvItems.MultiSelect = false;
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(483, 607);
+            this.lvItems.Size = new System.Drawing.Size(873, 607);
             this.lvItems.TabIndex = 9;
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
@@ -337,7 +337,7 @@
             // 
             this.descripter.DisplayIndex = 2;
             this.descripter.Text = "descripter";
-            this.descripter.Width = 183;
+            this.descripter.Width = 354;
             // 
             // deleted
             // 
@@ -346,15 +346,15 @@
             // splitter3
             // 
             this.splitter3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter3.Location = new System.Drawing.Point(800, 71);
+            this.splitter3.Location = new System.Drawing.Point(1190, 71);
             this.splitter3.Name = "splitter3";
-            this.splitter3.Size = new System.Drawing.Size(433, 3);
+            this.splitter3.Size = new System.Drawing.Size(43, 3);
             this.splitter3.TabIndex = 11;
             this.splitter3.TabStop = false;
             // 
             // splitter4
             // 
-            this.splitter4.Location = new System.Drawing.Point(800, 74);
+            this.splitter4.Location = new System.Drawing.Point(1190, 74);
             this.splitter4.Name = "splitter4";
             this.splitter4.Size = new System.Drawing.Size(10, 604);
             this.splitter4.TabIndex = 12;
@@ -363,19 +363,19 @@
             // props
             // 
             this.props.Dock = System.Windows.Forms.DockStyle.Top;
-            this.props.Location = new System.Drawing.Point(810, 74);
+            this.props.Location = new System.Drawing.Point(1200, 74);
             this.props.Margin = new System.Windows.Forms.Padding(4);
             this.props.Name = "props";
             this.props.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.props.Size = new System.Drawing.Size(423, 291);
+            this.props.Size = new System.Drawing.Size(33, 291);
             this.props.TabIndex = 13;
             // 
             // splitter5
             // 
             this.splitter5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter5.Location = new System.Drawing.Point(810, 365);
+            this.splitter5.Location = new System.Drawing.Point(1200, 365);
             this.splitter5.Name = "splitter5";
-            this.splitter5.Size = new System.Drawing.Size(423, 10);
+            this.splitter5.Size = new System.Drawing.Size(33, 10);
             this.splitter5.TabIndex = 14;
             this.splitter5.TabStop = false;
             // 
@@ -388,9 +388,9 @@
             this.toolStripButton5,
             this.toolStripButtonDownload,
             this.toolStripButtonUploadFile});
-            this.toolStrip2.Location = new System.Drawing.Point(810, 375);
+            this.toolStrip2.Location = new System.Drawing.Point(1200, 375);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(423, 43);
+            this.toolStrip2.Size = new System.Drawing.Size(33, 43);
             this.toolStrip2.TabIndex = 16;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -463,10 +463,10 @@
             this.listViewAttachments.FullRowSelect = true;
             this.listViewAttachments.GridLines = true;
             this.listViewAttachments.HideSelection = false;
-            this.listViewAttachments.Location = new System.Drawing.Point(810, 418);
+            this.listViewAttachments.Location = new System.Drawing.Point(1200, 418);
             this.listViewAttachments.MultiSelect = false;
             this.listViewAttachments.Name = "listViewAttachments";
-            this.listViewAttachments.Size = new System.Drawing.Size(423, 97);
+            this.listViewAttachments.Size = new System.Drawing.Size(33, 97);
             this.listViewAttachments.TabIndex = 17;
             this.listViewAttachments.UseCompatibleStateImageBehavior = false;
             this.listViewAttachments.View = System.Windows.Forms.View.Details;
