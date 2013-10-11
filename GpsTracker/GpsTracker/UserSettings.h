@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Adam Nagy. All rights reserved.
 //
 
-#ifndef GpsTracker_Settings_h
-#define GpsTracker_Settings_h
+#ifndef GpsTracker_UserSettings_h
+#define GpsTracker_UserSettings_h
 
 // Fill in these 3 macros with the correct information
 #define O2_OAUTH_KEY     @"your.oxygen.key"
