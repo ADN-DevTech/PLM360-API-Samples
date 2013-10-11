@@ -1,5 +1,5 @@
 //
-//  Settings.h
+//  UserSettings.h
 //  GpsTracker
 //
 //  Created by Adam Nagy on 04/10/2013.
