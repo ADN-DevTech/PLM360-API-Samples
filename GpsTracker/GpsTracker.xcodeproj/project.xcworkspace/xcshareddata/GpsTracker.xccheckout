@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DDAF4339-6081-40FB-89F8-23E76A7F7C31</string>
+	<key>IDESourceControlProjectName</key>
+	<string>GpsTracker</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>76CBA677-48A6-49FB-8E07-0336EF332653</key>
+		<string>https://github.com/ADN-DevTech/PLM360-API-Samples.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>GpsTracker/GpsTracker.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>76CBA677-48A6-49FB-8E07-0336EF332653</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ADN-DevTech/PLM360-API-Samples.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>76CBA677-48A6-49FB-8E07-0336EF332653</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>76CBA677-48A6-49FB-8E07-0336EF332653</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PLM360-API-Samples</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -7,7 +7,7 @@
 //
 
 #import "PlmCalls.h"
-#import "Settings.h"
+#import "UserSettings.h"
 #import "PlmPayloads.h"
 
 // Various paths for the quesries

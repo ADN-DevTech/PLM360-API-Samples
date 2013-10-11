@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-#import "Settings.h"
+#import "UserSettings.h"
 #import "Msg.h"
 
 // This is an OAuth library I got from

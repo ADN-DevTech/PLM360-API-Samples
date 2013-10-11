@@ -45,7 +45,7 @@
 /* Begin PBXFileReference section */
 		F70CB26D17FDBB6F007E3F77 /* Msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Msg.h; sourceTree = "<group>"; };
 		F70CB26E17FDBB6F007E3F77 /* Msg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Msg.m; sourceTree = "<group>"; };
-		F70CB27317FE976A007E3F77 /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		F70CB27317FE976A007E3F77 /* UserSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserSettings.h; sourceTree = "<group>"; };
 		F70CB27417FEB8D8007E3F77 /* PlmPayloads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlmPayloads.h; sourceTree = "<group>"; };
 		F70CB27517FEB8D8007E3F77 /* PlmPayloads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlmPayloads.m; sourceTree = "<group>"; };
 		F79A492E17F9B5AC00AD157E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -170,7 +170,7 @@
 		F7F1E6F117F9A1E2001B9860 /* GpsTracker */ = {
 			isa = PBXGroup;
 			children = (
-				F70CB27317FE976A007E3F77 /* Settings.h */,
+				F70CB27317FE976A007E3F77 /* UserSettings.h */,
 				F70CB27217FE96A1007E3F77 /* Oxygen */,
 				F70CB27117FE9693007E3F77 /* PLM */,
 				F70CB27017FE9684007E3F77 /* OAuth */,

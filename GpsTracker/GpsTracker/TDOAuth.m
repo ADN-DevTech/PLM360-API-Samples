@@ -30,7 +30,7 @@
  */
 
 #import "TDOAuth.h"
-#import "Settings.h"
+#import "UserSettings.h"
 #import <CommonCrypto/CommonHMAC.h>
 #import "LoginViewController.h"
 
