@@ -10,7 +10,7 @@
 #define GpsTracker_UserSettings_h
 
 // Fill in these 3 macros with the correct information
-#define O2_OAUTH_KEY     @"your.oxygen.key"
+#define O2_OAUTH_KEY     @"your.oxygen.key2"
 #define O2_OAUTH_SECRET  @"your.oxygen.secret.key"
 // Do NOT add the "https://" prefix!
 #define O2_HOST          @"accounts.autodesk.com"
