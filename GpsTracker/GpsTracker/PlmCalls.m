@@ -265,20 +265,34 @@ contentType:(NSString*)contentType, ...
   if (!plmUserId)
     [self loginToPlm];
   
-  NSData *data =
+  // From PLM 360 v9.1 on the item needs to be in an array
+  NSDictionary *item =
   [PlmItem
-   dataWithNAME:name
+   jsonWithNAME:name
    GPS:position
    DATE:[NSDate date]];
+  
+  NSArray * items = [NSArray arrayWithObject:item];
+  
+  NSError * error = nil;
+  
+  NSData *data =
+  [NSJSONSerialization
+          dataWithJSONObject:items
+          options:0 // no NSJSONWritingPrettyPrinted
+          error:&error];
   
   NSString *path =
   [NSString stringWithFormat:PLM_PATH_ITEMS, PLM_WORKSPACE_ID];
   
   // Create new item
-  PlmItem *plmItem =
-  [PlmItem
+  PlmItems *plmItems =
+  [PlmItems
    objectFromJson:
    [self httpPost:path withData:data multipart:false]];
+  
+  if (!plmItems)
+    return false;
   
   // If there is no image to attach, we have nothing more to do
   if (!image)
@@ -304,12 +318,12 @@ contentType:(NSString*)contentType, ...
  
   // Get the path for the call
   path = [NSString stringWithFormat:PLM_PATH_FILES, PLM_WORKSPACE_ID,
-          plmItem.Id];
+          ((PlmItem*)[plmItems.Elements objectAtIndex:0]).Id];
   
   // Send the data to PLM 360
-  NSDictionary *item = [self httpPost:path withData:body multipart:true];
+  NSDictionary *files = [self httpPost:path withData:body multipart:true];
   
-  return (item != nil);
+  return (files != nil);
 }
 
 + (NSDictionary*)getPositions
