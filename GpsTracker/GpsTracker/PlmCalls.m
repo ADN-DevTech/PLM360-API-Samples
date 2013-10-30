@@ -352,6 +352,10 @@ contentType:(NSString*)contentType, ...
     
     for (PlmItem *item in plmItems.Elements)
     {
+      // Let's ignore deleted items
+      if (item.Deleted)
+        continue;
+    
       NSString *path =
       [NSString stringWithFormat:PLM_PATH_ITEM, PLM_WORKSPACE_ID, item.Id];
       

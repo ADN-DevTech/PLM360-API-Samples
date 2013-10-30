@@ -46,10 +46,12 @@ DATE:(NSDate*)DATE;
 @interface PlmItem : NSObject
 {
   NSNumber *Id;
+  BOOL Deleted;
   PlmFields *Fields;
 }
 
 @property (nonatomic, retain) NSNumber *Id;
+@property (nonatomic) BOOL Deleted;
 @property (nonatomic, retain) PlmFields *Fields;
 
 + (NSData*)

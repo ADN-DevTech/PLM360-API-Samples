@@ -63,7 +63,7 @@ DATE:(NSDate*)DATE
 
 @implementation PlmItem
 
-@synthesize Id, Fields;
+@synthesize Deleted, Id, Fields;
 
 + (NSData*)
 dataWithNAME:(NSString*)NAME
@@ -98,6 +98,7 @@ DATE:(NSDate*)DATE
   PlmItem *plmItem = [PlmItem alloc];
   
   plmItem.Id = [dict objectForKey:@"id"];
+  plmItem.Deleted = [[dict objectForKey:@"deleted"] boolValue];
   plmItem.Fields = [PlmFields objectFromJson:[dict objectForKey:@"fields"]];
   
   return plmItem;
