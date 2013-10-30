@@ -14,7 +14,6 @@
 		F79A493517F9BAAF00AD157E /* TDOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = F79A493417F9BAAF00AD157E /* TDOAuth.m */; };
 		F79A493817F9EDCC00AD157E /* PlmCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = F79A493717F9EDCC00AD157E /* PlmCalls.m */; };
 		F79A493B17FAFFDE00AD157E /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F79A493A17FAFFDE00AD157E /* ImageViewController.m */; };
-		F7DAED0217FC89F8002C12EC /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DAED0117FC89F8002C12EC /* test.png */; };
 		F7F1E6EC17F9A1E2001B9860 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F1E6EB17F9A1E2001B9860 /* Foundation.framework */; };
 		F7F1E6EE17F9A1E2001B9860 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F1E6ED17F9A1E2001B9860 /* CoreGraphics.framework */; };
 		F7F1E6F017F9A1E2001B9860 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F1E6EF17F9A1E2001B9860 /* UIKit.framework */; };
@@ -58,7 +57,6 @@
 		F79A493917FAFFDE00AD157E /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		F79A493A17FAFFDE00AD157E /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		F79A493C17FB0E6500AD157E /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		F7DAED0117FC89F8002C12EC /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
 		F7F1E6E817F9A1E2001B9860 /* GpsTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GpsTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7F1E6EB17F9A1E2001B9860 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F7F1E6ED17F9A1E2001B9860 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -176,7 +174,6 @@
 				F70CB27017FE9684007E3F77 /* OAuth */,
 				F7F1E6FD17F9A1E2001B9860 /* Main_iPhone.storyboard */,
 				F7F1E70017F9A1E2001B9860 /* Main_iPad.storyboard */,
-				F7DAED0117FC89F8002C12EC /* test.png */,
 				F7F1E6FA17F9A1E2001B9860 /* AppDelegate.h */,
 				F7F1E6FB17F9A1E2001B9860 /* AppDelegate.m */,
 				F7F1E70317F9A1E2001B9860 /* ViewController.h */,
@@ -297,7 +294,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7F1E70217F9A1E2001B9860 /* Main_iPad.storyboard in Resources */,
-				F7DAED0217FC89F8002C12EC /* test.png in Resources */,
 				F7F1E70717F9A1E2001B9860 /* Images.xcassets in Resources */,
 				F7F1E6FF17F9A1E2001B9860 /* Main_iPhone.storyboard in Resources */,
 				F7F1E6F617F9A1E2001B9860 /* InfoPlist.strings in Resources */,

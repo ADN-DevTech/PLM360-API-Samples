@@ -57,6 +57,11 @@ dataWithNAME:(NSString*)NAME
 GPS:(NSString*)GPS
 DATE:(NSDate*)DATE;
 
++ (NSDictionary*)
+jsonWithNAME:(NSString*)NAME
+GPS:(NSString*)GPS
+DATE:(NSDate*)DATE;
+
 + (PlmItem*) objectFromJson:(NSDictionary*)dict;
 
 @end

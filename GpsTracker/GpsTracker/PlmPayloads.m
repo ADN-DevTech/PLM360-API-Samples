@@ -9,7 +9,7 @@
 #import "PlmPayloads.h"
 
 //////////////////////////////////////////////////////////////////////
-// PlmItem
+// PlmItem / PlmFields
 //////////////////////////////////////////////////////////////////////
 
 #define PLM_DATE_FORMAT @"yyyy-MM-dd"
@@ -70,10 +70,7 @@ dataWithNAME:(NSString*)NAME
 GPS:(NSString*)GPS
 DATE:(NSDate*)DATE
 {
-  PlmItem *plmItem = [PlmItem alloc];
-  plmItem.Fields = [PlmFields objectWithNAME:NAME GPS:GPS DATE:DATE];
-
-  NSDictionary *dict = [plmItem jsonFromObject];
+  NSDictionary *dict = [PlmItem jsonWithNAME:NAME GPS:GPS DATE:DATE];
 
   NSError * error = nil;
   
@@ -81,6 +78,19 @@ DATE:(NSDate*)DATE
           dataWithJSONObject:dict
           options:0 // no NSJSONWritingPrettyPrinted
           error:&error];  
+}
+
++ (NSDictionary*)
+jsonWithNAME:(NSString*)NAME
+GPS:(NSString*)GPS
+DATE:(NSDate*)DATE
+{
+  PlmItem *plmItem = [PlmItem alloc];
+  plmItem.Fields = [PlmFields objectWithNAME:NAME GPS:GPS DATE:DATE];
+
+  NSDictionary *dict = [plmItem jsonFromObject];
+
+  return dict;
 }
 
 + (PlmItem*) objectFromJson:(NSDictionary*)dict
