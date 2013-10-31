@@ -38,7 +38,7 @@ namespace Autodesk.ADN.PLM360API
         private Dictionary<string, string> _cookies;
 
         // cookie name, cookie value
-        public Dictionary<string,string> Cookies 
+        public Dictionary<string, string> Cookies 
         {
             get
             {
@@ -144,7 +144,7 @@ namespace Autodesk.ADN.PLM360API
             request.AddHeader("accept", "application/json");
 
             //add cookies which contains the login information
-            AddCookies(request);
+            _client.AddCookies(request, Cookies);
 
             IRestResponse<Session> response = await _client.ExecuteAsync<Session>(
                 request);
@@ -170,7 +170,7 @@ namespace Autodesk.ADN.PLM360API
             request.AddHeader("accept", "application/json");
    
             //add cookies which contains the login information
-            AddCookies(request);
+            _client.AddCookies(request, Cookies);
 
             IRestResponse<PagedCollection<Workspace>> response =
                 await _client.ExecuteAsync<PagedCollection<Workspace>>(
@@ -196,7 +196,7 @@ namespace Autodesk.ADN.PLM360API
             request.AddHeader("accept", "application/json");
 
             //add cookies which contains the login information
-            AddCookies(request);
+            _client.AddCookies(request, Cookies);
 
             IRestResponse<Workspace> response =
                 await _client.ExecuteAsync<Workspace>(
@@ -236,7 +236,7 @@ namespace Autodesk.ADN.PLM360API
             request.AddHeader("accept", "application/json");
 
             //add cookies which contains the login information
-            AddCookies(request);
+            _client.AddCookies(request, Cookies);
 
             IRestResponse<PagedCollection<Item>> response =
                 await _client.ExecuteAsync<PagedCollection<Item>>(
@@ -265,7 +265,7 @@ namespace Autodesk.ADN.PLM360API
             request.AddHeader("accept", "application/json");
 
             //add cookies which contains the login information
-            AddCookies(request);
+            _client.AddCookies(request, Cookies);
 
             IRestResponse<Item> response = 
                 await _client.ExecuteAsync<Item>(
@@ -292,7 +292,9 @@ namespace Autodesk.ADN.PLM360API
             request.AddHeader("content-type", "application/json");
             request.AddHeader("accept", "application/json");
 
-            string json = JsonConvert.SerializeObject(item);
+            Item[] items = new Item[] { item };
+
+            string json = JsonConvert.SerializeObject(items);
 
             request.AddParameter(
                 "application/json; charset=utf-8", 
@@ -302,7 +304,7 @@ namespace Autodesk.ADN.PLM360API
             request.RequestFormat = DataFormat.Json;
 
             //add cookies which contains the login information
-            AddCookies(request);
+            _client.AddCookies(request, Cookies);
 
             IRestResponse<Item> response =
                 await _client.ExecuteAsync<Item>(
@@ -315,14 +317,6 @@ namespace Autodesk.ADN.PLM360API
             else
             {
                 return false;
-            }
-        }
-
-        private void AddCookies(RestRequest request)
-        {
-            foreach (var cookie in Cookies)
-            {
-                request.AddCookie(cookie.Key, cookie.Value);
             }
         }
     }
@@ -344,6 +338,17 @@ namespace Autodesk.ADN.PLM360API
                     return null;
                 }
             });
+        }
+
+        public static void AddCookies(
+            this RestClient client,
+            RestRequest request,
+            Dictionary<string, string> cookies)
+        {
+            foreach (var cookie in cookies)
+            {
+                request.AddCookie(cookie.Key, cookie.Value);
+            }
         }
     }
 }
