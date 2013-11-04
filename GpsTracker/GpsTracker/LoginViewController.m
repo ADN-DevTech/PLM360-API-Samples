@@ -183,6 +183,8 @@ NSString *authorizationExpires;
   accessTokenExpires = params[@"oauth_expires_in"];
   authorizationExpires = params[@"oauth_authorization_expires_in"];
   o2UserId = params[@"x_oauth_user_name"];
+  // user id needs to be URL undecoded
+  o2UserId = [o2UserId stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
   
   // If session handle is not null then we got the tokens
   if (sessionHandle != nil)
