@@ -559,7 +559,7 @@ namespace MaterialProfiler
         //
         ////////////////////////////////////////////////////////////////////////////
 
-	// Hard coded consumer, secret keys and base URL.
+        // Hard coded consumer, secret keys and base URL.
         // In real world Apps, these values need to secured.
         // One approach is to encrypt and/or obfuscate these values
 
@@ -567,6 +567,7 @@ namespace MaterialProfiler
         private const string ConsumerKey = "**********";
         private const string BaseURL = "**********";
         private const string TanentName = "**********";
+
 
         List<string> _missingMaterials = new List<string>();
 
