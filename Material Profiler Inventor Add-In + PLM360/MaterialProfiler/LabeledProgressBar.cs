@@ -51,40 +51,41 @@ namespace CustomControls
             Maximum = 100;
             Style = ProgressBarStyle.Continuous;
 
-            this.SetStyle(ControlStyles.UserPaint, true);
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(
+                ControlStyles.UserPaint |
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.OptimizedDoubleBuffer, true);
         }
 
         protected override void OnPaint(PaintEventArgs e) 
         {
             base.OnPaint(e);
 
-            using (Graphics gr = this.CreateGraphics())
+            Graphics gr = e.Graphics; 
+            string str = LabelText;
+
+            //LinearGradientBrush brBG = new LinearGradientBrush(
+            //    e.ClipRectangle,
+            //    Color.GreenYellow,
+            //    Color.Green,
+            //    LinearGradientMode.Horizontal);
+
+            using (SolidBrush brBG = new SolidBrush(Color.Turquoise))
             {
-                string str = LabelText;
-
-                //LinearGradientBrush brBG = new LinearGradientBrush(
-                //    e.ClipRectangle,
-                //    Color.GreenYellow,
-                //    Color.Green,
-                //    LinearGradientMode.Horizontal);
-
-                SolidBrush brBG = new SolidBrush(Color.Turquoise);
-
                 e.Graphics.FillRectangle(brBG,
                     e.ClipRectangle.X,
                     e.ClipRectangle.Y,
                     e.ClipRectangle.Width * this.Value / this.Maximum,
                     e.ClipRectangle.Height);
-
-                //Font = new Font(Font.Name, Font.Size, FontStyle.Bold);
-
-                gr.DrawString(str, 
-                    Font, 
-                    Brushes.Black,
-                    new PointF(this.Width / 2 - (gr.MeasureString(str, SystemFonts.DefaultFont).Width / 2.0F),
-                    this.Height / 2 - (gr.MeasureString(str, SystemFonts.DefaultFont).Height / 2.0F)));
             }
+
+            //Font = new Font(Font.Name, Font.Size, FontStyle.Bold);
+
+            gr.DrawString(str, 
+                Font, 
+                Brushes.Black,
+                new PointF(this.Width / 2 - (gr.MeasureString(str, SystemFonts.DefaultFont).Width / 2.0F),
+                this.Height / 2 - (gr.MeasureString(str, SystemFonts.DefaultFont).Height / 2.0F)));
         }
     } 
 
