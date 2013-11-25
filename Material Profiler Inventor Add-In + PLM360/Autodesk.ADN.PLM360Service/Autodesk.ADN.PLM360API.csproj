@@ -34,10 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>Z:\Cloud and Mobile\Samples\ADN CloudViewer\Clients\RestOpenGLClient\resources\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\references\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp">
-      <HintPath>..\..\..\..\..\..\..\Users\duda\Documents\GitHub\RestSharp\RestSharp\bin\Debug\RestSharp.dll</HintPath>
+      <HintPath>..\references\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -566,7 +566,7 @@ namespace MaterialProfiler
         private const string ConsumerSecret = "**********";
         private const string ConsumerKey = "**********";
         private const string BaseURL = "**********";
-        private const string TanentName = "**********";
+        private const string TenantName = "**********";
 
 
         List<string> _missingMaterials = new List<string>();
@@ -595,7 +595,7 @@ namespace MaterialProfiler
 
             if (_loggedIn)
             {
-                _plmSvc = new PLM360RestService(TanentName);
+                _plmSvc = new PLM360RestService(TenantName);
 
                 Session session = await _plmSvc.DoLoginAsync(
                     _connector.ConsumerKey,
