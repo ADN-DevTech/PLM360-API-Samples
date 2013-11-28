@@ -298,7 +298,7 @@ navigationType:(UIWebViewNavigationType)navigationType
   if ([arr[0] isEqualToString:O2_AUTHORIZE])
   {
     [Msg
-    ask:@"Could not log in!\nTry again? "
+    askQuestion:@"Could not log in!\nTry again? "
     option1:@"No"
     option2:@"Yes"
     handler1:
@@ -306,7 +306,7 @@ navigationType:(UIWebViewNavigationType)navigationType
       [self dismissViewControllerAnimated:true completion:nil];
     }
     handler2:
-    ^{
+    ^(NSString*name){
       [self logIn];
     }];
   }

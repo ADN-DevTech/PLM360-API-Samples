@@ -11,7 +11,7 @@
 static Msg *instance;
 static UIActivityIndicatorView *activity;
 static void (^callHandler1)(void);
-static void (^callHandler2)(void);
+static void (^callHandler2)(NSString*);
 
 @implementation Msg
 
@@ -28,11 +28,11 @@ static void (^callHandler2)(void);
    [alert show];
 }
 
-+ (void)ask:(NSString*)question
++ (void)askQuestion:(NSString*)question
 option1:(NSString*)option1
 option2:(NSString*)option2
 handler1:(void (^)(void))handler1
-handler2:(void (^)(void))handler2
+handler2:(void (^)(NSString*))handler2
 {
   callHandler1 = handler1;
   callHandler2 = handler2;
@@ -51,6 +51,31 @@ handler2:(void (^)(void))handler2
    [alert show];
 }
 
++ (void)askInfo:(NSString*)info
+option1:(NSString*)option1
+option2:(NSString*)option2
+handler1:(void (^)(void))handler1
+handler2:(void (^)(NSString*))handler2
+{
+  callHandler1 = handler1;
+  callHandler2 = handler2;
+  
+  if (!instance)
+    instance = [Msg alloc];
+  
+  UIAlertView *alert =
+  [[UIAlertView alloc]
+   initWithTitle:@"Question"
+   message:info
+   delegate:instance
+   cancelButtonTitle:option1
+   otherButtonTitles:option2, nil];
+  
+   alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+  
+   [alert show];
+}
+
 - (void)alertView:(UIAlertView *)alertView
         didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
@@ -58,7 +83,9 @@ handler2:(void (^)(void))handler2
   if (buttonIndex == 0)
     callHandler1();
   else
-    callHandler2();
+  {
+    callHandler2([alertView textFieldAtIndex:0].text);
+  }
 }
 
 @end

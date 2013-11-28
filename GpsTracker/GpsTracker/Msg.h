@@ -12,10 +12,16 @@
 
 + (void)inform:(NSString*)message;
 
-+ (void)ask:(NSString*)question
++ (void)askQuestion:(NSString*)question
 option1:(NSString*)option1
 option2:(NSString*)option2
 handler1:(void (^)(void))handler1
-handler2:(void (^)(void))handler2;
+handler2:(void (^)(NSString*))handler2;
+
++ (void)askInfo:(NSString*)info
+option1:(NSString*)option1
+option2:(NSString*)option2
+handler1:(void (^)(void))handler1
+handler2:(void (^)(NSString*))handler2;
 
 @end

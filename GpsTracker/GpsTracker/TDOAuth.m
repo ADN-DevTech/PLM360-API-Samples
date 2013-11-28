@@ -33,6 +33,7 @@
 #import "UserSettings.h"
 #import <CommonCrypto/CommonHMAC.h>
 #import "LoginViewController.h"
+#include "PlmCalls.h"
 
 #ifndef TDOAuthURLRequestTimeout
 #define TDOAuthURLRequestTimeout 30.0
@@ -443,7 +444,7 @@ static NSString* timestamp()
     NSString *json =
     [NSString
      stringWithFormat:@"{\"customerId\":\"%@\",\"validation\":\"%@\"}",
-     PLM_TENANT, header];
+     [PlmCalls plmTenantName], header];
     
 #ifdef DEBUG_STRINGS
     NSLog(@"Json request body: %@", json);

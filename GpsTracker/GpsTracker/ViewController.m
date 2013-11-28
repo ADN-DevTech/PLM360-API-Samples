@@ -133,6 +133,29 @@
 }
 
 // Refresh the current position
+- (IBAction)tenantClick:(id)sender
+{
+  [Msg
+    askInfo:@"Tenant name / WorkspaceId: \ne.g. mytenant/54"
+    option1:@"Cancel"
+    option2:@"Done"
+    handler1: ^{}
+    handler2:
+    ^(NSString * name){
+      NSArray * info = [name componentsSeparatedByString:@"/"];
+      if ([info count] < 2)
+      {
+        [Msg inform:@"Tenant name and WorkspaceId need to be separated by '/'"];
+      }
+      else
+      {
+        self.tenantButton.title = name;
+        [PlmCalls setPlmTenantName:[info objectAtIndex:0]];
+        [PlmCalls setWsId:[info objectAtIndex:1]];
+      }
+    }];
+}
+
 - (IBAction)refreshClick:(id)sender
 {
   [self removeAnnotationsIncludingUserLocation:false];
@@ -217,7 +240,15 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info
   (
    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
    ^{
-     Boolean res = [PlmCalls storePosition:pos withName:name withImage:image];
+     Boolean res = false;
+     
+     @try
+     {
+     res = [PlmCalls storePosition:pos withName:name withImage:image];
+      }
+    @catch (NSException *exception)
+    {
+    }
      
      // Move it back to the main thread for UI
      dispatch_sync
@@ -245,7 +276,15 @@ didFinishPickingMediaWithInfo:(NSDictionary*)info
    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
    ^{
      // Get the positions stored in PLM
-     NSDictionary *positions = [PlmCalls getPositions];
+
+     NSDictionary *positions;
+     @try
+     {
+       positions = [PlmCalls getPositions];
+     }
+     @catch (NSException *exception)
+     {
+     }
      
      // Now move back to the main thread as we have to
      // update UI stuff
@@ -323,12 +362,12 @@ calloutAccessoryControlTapped:(UIControl *)control
   if ([LoginViewController loggedIn])
   {
     [Msg
-    ask:@"Log out?"
+    askQuestion:@"Log out?"
     option1:@"No"
     option2:@"Yes"
     handler1:^{}
     handler2:
-    ^{
+    ^(NSString*name){
       // Log out from PLM if needed
       [PlmCalls logOut];
     

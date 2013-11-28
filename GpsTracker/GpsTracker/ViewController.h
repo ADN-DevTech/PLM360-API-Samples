@@ -26,7 +26,9 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *showButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *loginButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *tenantButton;
 
+- (IBAction)tenantClick:(id)sender;
 - (IBAction)refreshClick:(id)sender;
 - (IBAction)storeClick:(id)sender;
 - (IBAction)showClick:(id)sender;

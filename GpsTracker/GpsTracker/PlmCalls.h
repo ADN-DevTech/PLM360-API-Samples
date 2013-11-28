@@ -12,6 +12,9 @@
 
 @interface PlmCalls : NSObject
 
++ (void)setPlmTenantName:(NSString*)name;
++ (void)setWsId:(NSString*)name;
++ (NSString*)plmTenantName;
 + (Boolean)storePosition:(NSString*)position
              withName:(NSString*)name
             withImage:(UIImage*)image;

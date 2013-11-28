@@ -21,6 +21,8 @@
 
 // Keeping track of the plm user's is
 static NSString *plmUserId;
+static NSString *plmTenantName;
+static NSString *plmWsId;
 
 @interface PlmCalls ()
 
@@ -32,12 +34,17 @@ static NSString *plmUserId;
 // Internal functions ////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
++ (NSString*)plmTenantUrl
+{
+  return [NSString stringWithFormat:@"%@.autodeskplm360.net", [plmTenantName lowercaseString]];
+}
+
 + (NSDictionary*)httpPost:(NSString*)path
 {
   NSURLRequest * req =
   [TDOAuth
    PostRequestForPath:path
-   host:PLM_TENANT_URL
+   host:[PlmCalls plmTenantUrl] //PLM_TENANT_URL
    data:nil
    consumerKey:O2_OAUTH_KEY
    consumerSecret:O2_OAUTH_SECRET
@@ -76,7 +83,7 @@ static NSString *plmUserId;
   NSURLRequest * req =
   [TDOAuth
    PostRequestForPath:path
-   host:PLM_TENANT_URL
+   host:[PlmCalls plmTenantUrl]
    data:data
    consumerKey:O2_OAUTH_KEY
    consumerSecret:O2_OAUTH_SECRET
@@ -117,7 +124,7 @@ static NSString *plmUserId;
    GETParameters:nil
    scheme:@"https"
    headers:headers
-   host:PLM_TENANT_URL
+   host:[PlmCalls plmTenantUrl]
    consumerKey:O2_OAUTH_KEY
    consumerSecret:O2_OAUTH_SECRET
    accessToken:[LoginViewController getAccessToken]
@@ -156,7 +163,7 @@ static NSString *plmUserId;
    GETParameters:nil
    scheme:@"https"
    headers:headers
-   host:PLM_TENANT_URL
+   host:[PlmCalls plmTenantUrl]
    consumerKey:O2_OAUTH_KEY
    consumerSecret:O2_OAUTH_SECRET
    accessToken:[LoginViewController getAccessToken]
@@ -258,6 +265,21 @@ contentType:(NSString*)contentType, ...
 // Interface /////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
++ (void)setPlmTenantName:(NSString*)name
+{
+  plmTenantName = [name uppercaseString];
+}
+
++ (void)setWsId:(NSString*)name
+{
+  plmWsId = name;
+}
+
++ (NSString*)plmTenantName
+{
+  return plmTenantName;
+}
+
 + (Boolean)storePosition:(NSString*)position
                 withName:(NSString*)name
                withImage:(UIImage*)image
@@ -283,7 +305,7 @@ contentType:(NSString*)contentType, ...
           error:&error];
   
   NSString *path =
-  [NSString stringWithFormat:PLM_PATH_ITEMS, PLM_WORKSPACE_ID];
+  [NSString stringWithFormat:PLM_PATH_ITEMS, plmWsId];
   
   // Create new item
   PlmItems *plmItems =
@@ -291,7 +313,7 @@ contentType:(NSString*)contentType, ...
    objectFromJson:
    [self httpPost:path withData:data multipart:false]];
   
-  if (!plmItems)
+  if ([plmItems.Elements count] < 1)
     return false;
   
   // If there is no image to attach, we have nothing more to do
@@ -317,7 +339,7 @@ contentType:(NSString*)contentType, ...
     nil];
  
   // Get the path for the call
-  path = [NSString stringWithFormat:PLM_PATH_FILES, PLM_WORKSPACE_ID,
+  path = [NSString stringWithFormat:PLM_PATH_FILES, plmWsId,
           ((PlmItem*)[plmItems.Elements objectAtIndex:0]).Id];
   
   // Send the data to PLM 360
@@ -334,7 +356,7 @@ contentType:(NSString*)contentType, ...
   NSMutableDictionary *positions = [[NSMutableDictionary alloc] init];
   
   NSString *path =
-  [NSString stringWithFormat:PLM_PATH_ITEMS, PLM_WORKSPACE_ID];
+  [NSString stringWithFormat:PLM_PATH_ITEMS, plmWsId];
   
   // For testing let's set page-size to 2
   // path = [path stringByAppendingString:@"?page-size=2"];
@@ -357,7 +379,7 @@ contentType:(NSString*)contentType, ...
         continue;
     
       NSString *path =
-      [NSString stringWithFormat:PLM_PATH_ITEM, PLM_WORKSPACE_ID, item.Id];
+      [NSString stringWithFormat:PLM_PATH_ITEM, plmWsId, item.Id];
       
       PlmItem *itemData =
       [PlmItem objectFromJson:[self httpGet:path headers:nil]];
@@ -387,7 +409,7 @@ contentType:(NSString*)contentType, ...
   NSString *path =
   [NSString
    stringWithFormat:PLM_PATH_FILES,
-   PLM_WORKSPACE_ID, itemId];
+   plmWsId, itemId];
   
   PlmFiles *plmFiles =
   [PlmFiles objectFromJson:[self httpGet:path headers:nil]];
@@ -401,7 +423,7 @@ contentType:(NSString*)contentType, ...
   path =
   [NSString
    stringWithFormat:PLM_PATH_FILE,
-   PLM_WORKSPACE_ID, itemId, plmFile.Id];
+   plmWsId, itemId, plmFile.Id];
   
   NSDictionary *dict =
   [NSDictionary
