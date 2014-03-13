@@ -34,7 +34,7 @@ This repository contains 3 samples:
     - Getting the data in the items
     - Downloading item file attachments
 
-The .NET sample uses a updated version of RESTSharp by author(source code is not included in this project), find the dll from repository.
+The .NET sample uses a updated version of RESTSharp by author(source code is not included in this project), find it from https://github.com/duchangyu/RestSharp/
 
 "Material Profiler Inventor Add-In + PLM360"
 - A .NET Inventor AddIn called Material Profiler, which is storing material related information inside PLM 360 and uses that to provide data about all the materials being used inside the assembly
