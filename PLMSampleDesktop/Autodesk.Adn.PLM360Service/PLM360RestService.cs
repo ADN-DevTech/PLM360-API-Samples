@@ -78,6 +78,7 @@ namespace Autodesk.Adn.PLM360API
                     m_OAuthService.ConsumerKey, m_OAuthService.ConsumerSecret,
                     m_OAuthService.AccessToken, m_OAuthService.AccessTokenSecret);
 
+            //must be HttpAuthorizationHeader here, 
             authenticator.ParameterHandling = RestSharp.Authenticators.OAuth.OAuthParameterHandling.HttpAuthorizationHeader;
             m_client.Authenticator = authenticator; 
           
@@ -93,7 +94,7 @@ namespace Autodesk.Adn.PLM360API
 
             OxygenCredentials cred = new OxygenCredentials();
             cred.customerId = this.customerId.ToUpper(); //must be upper case?? Yes, must be UPPERCASE!!
-            cred.validation =  authenticator.GetAuthorizationHeader();// using a revised version of restsharp
+            cred.validation = authenticator.GetAuthorizationHeader();// using a revised version of restsharp, authenticator.ParameterHandling should be HttpAuthorizationHeader
             request.AddBody(cred);
             
             IRestResponse<Session> response = m_client.Execute<Session>(request);
@@ -102,9 +103,9 @@ namespace Autodesk.Adn.PLM360API
             {
                 //save the cookies for latter use
                 foreach (var cookie in response.Cookies)
-	            {
-		             Cookies.Add(cookie.Name,cookie.Value);
-	            }
+                {
+                     Cookies.Add(cookie.Name,cookie.Value);
+                }
                 
                 return response.Data;
                 

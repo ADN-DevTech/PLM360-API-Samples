@@ -33,8 +33,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>..\..\..\..\..\..\..\Users\duda\Documents\GitHub\RestSharp\RestSharp\bin\Debug\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=104.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
