@@ -295,6 +295,11 @@ navigationType:(UIWebViewNavigationType)navigationType
   
   // If we got to this page then
   // probably there is an issue
+  /*
+  // If we leave this code here then the
+  // "Allow untrusted consumer to accept terms and conditions"
+  // web page would not show up. We have to let it show so that 
+  // the user can click "Continue" on it
   if ([arr[0] isEqualToString:O2_AUTHORIZE])
   {
     [Msg
@@ -310,6 +315,7 @@ navigationType:(UIWebViewNavigationType)navigationType
       [self logIn];
     }];
   }
+  */
   
   return false;
 }

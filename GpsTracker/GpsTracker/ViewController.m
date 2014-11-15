@@ -87,7 +87,7 @@
 // we can find that out here
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-  _refreshButton.enabled = (status == kCLAuthorizationStatusAuthorized);
+  _refreshButton.enabled = (status == kCLAuthorizationStatusAuthorizedAlways);
 }
 
 - (void)viewDidLoad
@@ -174,7 +174,7 @@
 {
   // Check that there is a location
   if ([CLLocationManager authorizationStatus] !=
-    kCLAuthorizationStatusAuthorized)
+    kCLAuthorizationStatusAuthorizedAlways)
   {
     [Msg inform:
       @"Location Services not enabled for this app. "

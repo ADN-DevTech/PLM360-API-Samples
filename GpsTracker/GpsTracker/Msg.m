@@ -7,6 +7,7 @@
 //
 
 #import "Msg.h"
+#import <UIKit/UIKit.h>
 
 static Msg *instance;
 static UIActivityIndicatorView *activity;
